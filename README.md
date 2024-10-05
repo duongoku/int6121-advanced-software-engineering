@@ -48,6 +48,10 @@ Before you begin, ensure you have the following installed on your machine:
 
 ### Backend Setup
 
+Before running BE, you need to create a sqlite database in the `BE/data` directory named `db.sqlite3` first. This can be achieved by running using the Import function in the [DB Browser for SQLite](https://sqlitebrowser.org/) with [BE/src/schema.sql](BE/src/schema.sql) and then saving the database.
+
+![](IMAGES/dbbrowser.png)
+
 1. **Navigate to the Backend Directory:**
 
     ```bash
