@@ -125,12 +125,13 @@ Once all services are up and running:
 
 ## Project Members
 
-| Name                 | ID       | Role             |
+The below table shows the project members and their **main** roles (i.e. each member does not do one task, but can do multiple tasks).
+| Name | ID | Role |
 | -------------------- | -------- | ---------------- |
-| Nguyen Vu Binh Duong | 23025102 | Developer        |
-| Do Thi Hong Van      | 23025110 | Tester           |
-| Pham Hoang Phi       | 23025106 | Product Owner    |
-| Nguyen Trong Dat     | 24025033 | Business Analyst |
+| Nguyen Vu Binh Duong | 23025102 | Developer |
+| Do Thi Hong Van | 23025110 | Tester |
+| Pham Hoang Phi | 23025106 | Product Owner |
+| Nguyen Trong Dat | 24025033 | Business Analyst |
 
 ---
 
