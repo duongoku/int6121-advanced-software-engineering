@@ -7,7 +7,7 @@
     -   [Project Overview](#project-overview)
     -   [Project Artifacts](#project-artifacts)
         -   [Figma](#figma)
-        -   [Requirements \& Architecture Design](#requirements--architecture-design)
+        -   [Requirements \& Architectural Design](#requirements--architectural-design)
         -   [Test Document](#test-document)
     -   [Getting Started](#getting-started)
         -   [Prerequisites](#prerequisites)
@@ -28,7 +28,7 @@ This mini-project is developed for the **6121 - Advanced Software Engineering** 
 The following is a link to the Figma project for this mini-project:
 [https://www.figma.com/community/file/1424288168204247330/ea-connect](https://www.figma.com/community/file/1424288168204247330/ea-connect)
 
-### Requirements & Architecture Design
+### Requirements & Architectural Design
 
 This document is available in the [DOCS/document/main.pdf](DOCS/document/main.pdf) file.
 
