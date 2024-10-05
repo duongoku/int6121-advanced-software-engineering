@@ -1,10 +1,11 @@
-import bcrypt
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from .models import *
+from datetime import datetime, timezone
 from dependencies import db_interact
 from dependencies.constants import ALGORITHM, SECRET_KEY
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+import bcrypt
 import jwt
-from .models import *
 
 router = APIRouter()
 
@@ -31,7 +32,7 @@ def authenticate_user(username: str, password: str):
         if not result["IsUserActive"]:
             return False
 
-        return result["HashedPassword"]
+        return result
 
 
 def create_access_token(data: dict):
@@ -54,7 +55,9 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token = create_access_token(data={"sub": user})
+    access_token = create_access_token(
+        data={"sub": user["Username"], "iat": datetime.now(timezone.utc)}
+    )
 
     # Save the token into the database
     with db_interact.SQLiteContext() as db:
