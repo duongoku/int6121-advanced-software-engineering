@@ -5,6 +5,10 @@
 -   [Advanced Software Engineering Mini-Project](#advanced-software-engineering-mini-project)
     -   [Table of Contents](#table-of-contents)
     -   [Project Overview](#project-overview)
+    -   [Project Artifacts](#project-artifacts)
+        -   [Figma](#figma)
+        -   [Requirements \& Architecture Design](#requirements--architecture-design)
+        -   [Test Document](#test-document)
     -   [Getting Started](#getting-started)
         -   [Prerequisites](#prerequisites)
         -   [Backend Setup](#backend-setup)
@@ -16,6 +20,21 @@
 ## Project Overview
 
 This mini-project is developed for the **6121 - Advanced Software Engineering** course. It comprises a backend (BE) built with [Python](https://www.python.org/) ([FastAPI](https://fastapi.tiangolo.com/)), a frontend (FE) served via a simple [Python HTTP server](https://docs.python.org/3/library/http.server.html) and [Bootstrap](https://getbootstrap.com/), and a reverse proxy managed by [Caddy](https://caddyserver.com/). The application facilitates seamless interaction between the frontend and backend services through the reverse proxy.
+
+## Project Artifacts
+
+### Figma
+
+The following is a link to the Figma project for this mini-project:
+[https://www.figma.com/community/file/1424288168204247330/ea-connect](https://www.figma.com/community/file/1424288168204247330/ea-connect)
+
+### Requirements & Architecture Design
+
+This document is available in the [DOCS/document/main.pdf](DOCS/document/main.pdf) file.
+
+### Test Document
+
+Test document is available on Google Sheets in the following link: [https://docs.google.com/spreadsheets/d/1XZu6DYD6e8Knkeral-qCdYQEnJbHb0gEoDl1YMwDkMk/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1XZu6DYD6e8Knkeral-qCdYQEnJbHb0gEoDl1YMwDkMk/edit?usp=sharing)
 
 ## Getting Started
 
