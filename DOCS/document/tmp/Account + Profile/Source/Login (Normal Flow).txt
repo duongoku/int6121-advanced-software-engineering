@@ -1,0 +1,22 @@
+title Login (Normal Flow)
+
+actor User
+participant WebUI
+entity Authentication backends
+
+alt Triggers
+User->WebUI: Choose to login from the UI
+else 
+User->WebUI: Visit protected content
+end 
+
+autonumber 
+autoactivation 
+
+WebUI-->User: Check for any existing session tokens
+User->WebUI: Submit user credentials
+WebUI->Authentication backends: Send encrypted user credentials
+Authentication backends->Authentication backends: Checks credential validity
+deactivate Authentication backends
+Authentication backends-->WebUI: Return success authentication status
+WebUI-->User: Store user credentials in browser

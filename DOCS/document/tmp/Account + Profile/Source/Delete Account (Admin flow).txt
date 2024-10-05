@@ -1,0 +1,29 @@
+title Delete Account (Admin flow)
+
+actor Admin
+participant WebUI
+entity Backend Services
+database Databases
+
+autonumber 
+
+
+Admin->WebUI: Request deletion from control panel
+activate WebUI
+Admin->WebUI: Select extra options for account deletion
+WebUI->Backend Services: Verifies user privileges
+activate Backend Services
+Backend Services-->WebUI: Confirm deletion request
+WebUI-->Admin: Prompt for user request
+deactivate WebUI
+Admin->WebUI: Confirm deletion request
+activate WebUI
+WebUI->Backend Services: Send request confirmation
+Backend Services->Databases: Request user data deletion
+activate Databases
+Databases-->Backend Services: Return status
+deactivate Databases
+Backend Services-->WebUI: Return status
+deactivate Backend Services
+WebUI-->Admin: Displays deletion status
+deactivate WebUI

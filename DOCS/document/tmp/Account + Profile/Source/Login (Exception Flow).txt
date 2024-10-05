@@ -1,0 +1,27 @@
+title Login (Exception Flow)
+
+actor User
+participant WebUI
+entity Authentication backends
+
+alt Triggers
+User->WebUI: Choose to login from the UI
+else 
+User->WebUI: Visit protected content
+end 
+
+autonumber 
+autoactivation 
+
+WebUI-->User: Check for any existing session tokens
+User->WebUI: Submit user credentials
+WebUI->Authentication backends: Submit authentication data
+Authentication backends-#red>Authentication backends:Check for credential validity
+deactivate Authentication backends
+Authentication backends--#red>WebUI: Return authentication status
+autonumber off
+alt Cases
+WebUI-->User: Display error, offer password reset
+else 
+WebUI-->User: Display account status, logs out
+end

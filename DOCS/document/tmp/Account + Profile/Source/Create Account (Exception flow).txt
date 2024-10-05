@@ -1,0 +1,25 @@
+title Create Account (Exception Flow/User Exist)
+
+actor Visitor
+participant WebUI
+entity Authentication backends
+database Database
+
+autonumber on
+
+Visitor->WebUI: Visit website
+Visitor->WebUI: Choose to register
+
+Visitor->WebUI: Input and confirm basic user info
+activate WebUI
+
+WebUI->Authentication backends: Send registration request
+activate Authentication backends
+Authentication backends->Database: Searches for existing user data
+activate Database
+Database-->Authentication backends: Return existing user data
+deactivate Database
+Authentication backends-->WebUI: Return error
+deactivate Authentication backends
+WebUI-->Visitor: Display error message, \noffer a password reset
+deactivate WebUI

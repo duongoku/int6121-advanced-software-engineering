@@ -1,0 +1,27 @@
+title View Profile (Normal Flow)
+
+actor User
+participant WebUI
+entity Backend Services
+database User Database
+ 
+
+alt From site
+User->WebUI: Select a profile
+activate WebUI
+else From direct links
+User->WebUI: Visit a direct link to profile
+end
+
+autonumber 
+autoactivation 
+WebUI->Backend Services: Send profile lookup request
+Backend Services->User Database: Query user profile
+User Database-->Backend Services: Return user profile info
+Backend Services->Backend Services: Filter user profile data
+deactivate Backend Services
+Backend Services-->WebUI: Return user profile
+WebUI-->User: Display user profile
+opt
+WebUI-->User: Display options to edit profile
+end

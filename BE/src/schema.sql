@@ -1,0 +1,88 @@
+PRAGMA foreign_keys = ON;
+-- Enable WAL mode
+PRAGMA journal_mode = WAL;
+
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "Users" (
+	"UUID"	TEXT NOT NULL UNIQUE,
+	"Username"	TEXT NOT NULL UNIQUE,
+	"HashedPassword"	BLOB NOT NULL,
+	"IsUserActive"	BOOL DEFAULT TRUE,
+	"IsProfileVisible"	BOOL DEFAULT TRUE,
+	"Permissions" TEXT DEFAULT 'user',
+	"UserToken"	TEXT,
+	PRIMARY KEY("UUID")
+);
+
+CREATE TABLE IF NOT EXISTS "Organizations" (
+	"UUID"	TEXT NOT NULL UNIQUE,
+	"OrganizationName"	TEXT NOT NULL,
+	"OrganizationAvatar"	TEXT,
+	"OrganizationDescription"	TEXT,
+	"OrganizationOwner"	TEXT NOT NULL,
+	PRIMARY KEY("UUID"),
+	FOREIGN KEY("OrganizationOwner") REFERENCES "Users"("UUID") ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "OrganizationMembers" (
+	"OrganizationUUID"	TEXT NOT NULL,
+	"UserUUID"	TEXT NOT NULL,
+	"IsAdmin"	BOOL DEFAULT FALSE,
+	PRIMARY KEY("OrganizationUUID","UserUUID"),
+	FOREIGN KEY("OrganizationUUID") REFERENCES "Organizations"("UUID") ON DELETE CASCADE,
+	FOREIGN KEY("UserUUID") REFERENCES "Users"("UUID") ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "Posts" (
+	"PostUUID"	TEXT NOT NULL UNIQUE,
+	"PostTitle"	TEXT NOT NULL,
+	"PostRichContent"	TEXT,
+	"PostOwner"	TEXT NOT NULL,
+	"PostOrganization"	TEXT NOT NULL,
+	"PostTimestamp"	INTEGER NOT NULL,
+	PRIMARY KEY("PostUUID"),
+	FOREIGN KEY("PostOwner") REFERENCES "Users"("UUID") ON DELETE CASCADE,
+	FOREIGN KEY("PostOrganization") REFERENCES "Organizations"("UUID") ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "Comments" (
+	"CommentID"	INTEGER NOT NULL,
+	"CommentContent"	TEXT NOT NULL,
+	"CommentOwner"	TEXT NOT NULL,
+	"CommentTimestamp"	INTEGER NOT NULL,
+	"CommentPost"	INTEGER NOT NULL,
+	PRIMARY KEY("CommentID" AUTOINCREMENT),
+	FOREIGN KEY("CommentOwner") REFERENCES "Users"("UUID") ON DELETE CASCADE,
+	FOREIGN KEY("CommentPost") REFERENCES "Posts"("PostUUID") ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "Likes" (
+	"LikeID"	INTEGER NOT NULL,
+	"LikeOwner"	INTEGER NOT NULL,
+	"LikePost"	INTEGER NOT NULL,
+	PRIMARY KEY("LikeID" AUTOINCREMENT),
+	FOREIGN KEY("LikeOwner") REFERENCES "Users"("UUID") ON DELETE CASCADE,
+	FOREIGN KEY("LikePost") REFERENCES "Posts"("PostUUID") ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "Applications" (
+	"ApplicantUUID"	TEXT NOT NULL,
+	"PostUUID"	TEXT NOT NULL,
+	FOREIGN KEY("ApplicantUUID") REFERENCES "Users"("UUID") ON DELETE CASCADE,
+	FOREIGN KEY("PostUUID") REFERENCES "Posts"("PostUUID") ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "UserProfile" (
+	"UUID"	TEXT NOT NULL UNIQUE,
+	"UserEmail"	TEXT,
+	"UserRealName"	TEXT,
+	"UserAvatar"	BLOB NULL DEFAULT NULL,
+	"UserPhoneNumber"	TEXT,
+	"UserProfileRichContent"	TEXT,
+	"UserProfileEducation"	TEXT,
+	"UserProfileExperience"	TEXT,
+	PRIMARY KEY("UUID"),
+	FOREIGN KEY("UUID") REFERENCES "Users"("UUID") ON DELETE CASCADE
+);
+
+COMMIT;

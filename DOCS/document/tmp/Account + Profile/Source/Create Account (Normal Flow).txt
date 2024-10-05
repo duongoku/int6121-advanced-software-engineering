@@ -1,0 +1,35 @@
+title Create Account (Normal flow)
+
+actor Visitor
+participant WebUI
+entity Authentication backends
+database Database
+
+autonumber on
+
+Visitor->WebUI: Visit website
+Visitor->WebUI: Choose to register
+
+Visitor->WebUI: Input and confirm basic user info
+activate WebUI
+
+WebUI->Authentication backends: Send registration request
+activate Authentication backends
+Authentication backends->Database: Searches for existing user data
+activate Database
+Database-->Authentication backends: Return no existing user data
+deactivate Database
+Authentication backends-->Visitor: Send confirmation email
+Visitor->Authentication backends: Confirm email address
+
+Authentication backends->Database: Save user data
+Authentication backends-->WebUI: Confirms successful registration
+
+opt Require Extra Info
+WebUI->Visitor: Ask user for extra information
+Visitor-->WebUI: Provide extra information or skipping
+end
+
+deactivate Authentication backends
+WebUI-->Visitor: Display registration status
+deactivate WebUI

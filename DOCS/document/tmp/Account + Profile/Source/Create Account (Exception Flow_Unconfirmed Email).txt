@@ -1,0 +1,26 @@
+title Create Account (Exception Flow/Unconfirmed Email)
+
+actor Visitor
+participant WebUI
+entity Authentication backends
+database Database
+
+autonumber on
+
+Visitor->WebUI: Visit website
+Visitor->WebUI: Choose to register
+
+Visitor->WebUI: Input and confirm basic user info
+activate WebUI
+
+WebUI->Authentication backends: Send registration request
+activate Authentication backends
+Authentication backends->Database: Searches for existing user data
+activate Database
+Database-->Authentication backends: Return no existing user data
+deactivate Database
+Authentication backends-->Visitor: Send confirmation email
+deactivate Authentication backends
+deactivate WebUI
+note over Visitor: User fails to confirm addresses
+Authentication backends->Authentication backends:Invalidate user registration request

@@ -1,0 +1,18 @@
+title Delete Account (Exception flow)
+
+actor User
+participant WebUI
+entity Backend Services
+
+autonumber 
+
+
+User->WebUI: Request deletion from user profile
+activate WebUI
+User->WebUI: Confirm password
+WebUI->Backend Services: Verifies user credentials
+activate Backend Services
+Backend Services--#red>WebUI: Return error
+deactivate Backend Services
+WebUI-->User: Display error
+deactivate WebUI

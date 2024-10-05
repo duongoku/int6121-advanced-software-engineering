@@ -1,0 +1,13 @@
+:3012
+
+encode gzip
+
+route {
+	handle /api/* {
+		reverse_proxy localhost:3013
+	}
+
+	handle {
+		reverse_proxy localhost:3014
+	}
+}

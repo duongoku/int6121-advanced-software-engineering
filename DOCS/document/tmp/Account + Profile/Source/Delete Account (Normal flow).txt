@@ -1,0 +1,29 @@
+title Delete Account (Normal flow)
+
+actor User
+participant WebUI
+entity Backend Services
+database Databases
+
+autonumber 
+
+
+User->WebUI: Request deletion from user profile
+activate WebUI
+User->WebUI: Confirm password
+WebUI->Backend Services: Verifies user credentials
+activate Backend Services
+Backend Services-->WebUI: Confirm deletion request
+WebUI-->User: Prompt for user request
+deactivate WebUI
+User->WebUI: Confirm deletion request
+activate WebUI
+WebUI->Backend Services: Send request confirmation
+Backend Services->Databases: Request user data deletion
+activate Databases
+Databases-->Backend Services: Return status
+deactivate Databases
+Backend Services-->WebUI: Return status
+deactivate Backend Services
+WebUI-->User: Displays notification and logs out
+deactivate WebUI

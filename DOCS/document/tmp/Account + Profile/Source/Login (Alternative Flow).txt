@@ -1,0 +1,22 @@
+title Login (Alternative Flow)
+
+actor User
+participant WebUI
+entity Authentication backends
+
+alt Triggers
+User->WebUI: Choose to login from the UI
+else 
+User->WebUI: Visit protected content
+end 
+
+autonumber 
+autoactivation 
+
+WebUI-->User: Check for any existing session tokens
+User->WebUI: Send existing session token
+WebUI->Authentication backends: Check for token validity
+Authentication backends->Authentication backends:Submit authenticaion data
+deactivate Authentication backends
+Authentication backends-->WebUI: Return authentication status
+WebUI-->User:Redirect user to appropriate content

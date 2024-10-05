@@ -1,0 +1,22 @@
+title View Profile (Exception Flow)
+
+actor User
+participant WebUI
+entity Backend Services
+database User Database
+ 
+
+alt From site
+User->WebUI: Select a profile
+activate WebUI
+else From direct links
+User->WebUI: Visit a direct link to profile
+end
+
+autonumber 
+autoactivation 
+WebUI->Backend Services: Send profile lookup request
+Backend Services->User Database: Query user profile
+User Database--#red>Backend Services: Return error
+Backend Services--#red>WebUI: Return lookup error
+WebUI-->User: Display appropriate error message
